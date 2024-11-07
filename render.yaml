@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: dynamic-spreadsheet-app
+    env: python
+    plan: free  
+    branch: main
+    buildCommand: ""
+    startCommand: gunicorn app:app 
+    envVars:
+      - key: FLASK_ENV
+        value: production

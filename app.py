@@ -4,6 +4,8 @@ from pages.page2 import page2_blueprint
 
 app = Flask(__name__)
 
+app.secret_key = 'mathtools'
+
 app.register_blueprint(distribution_blueprint, url_prefix='/distribution')
 app.register_blueprint(page2_blueprint, url_prefix='/page2')  
 

@@ -1,42 +1,89 @@
-:root {
-    --primary-color: #3498db; 
-    --secondary-color: #2c3e50; 
-    --background-color: #f4f6f9; 
-    --text-color: #333; 
-    --border-color: #dcdcdc; 
-}
-
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f9f9f9;
+    color: #000;
+}
+
+.page-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#wrap {
+    width: 90%;
+    margin: auto;
+    max-width: 1000px;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.full_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.vertical_block {
+    flex: 1;
+}
+
+.header-title {
+    line-height: 1.4em;
+    font-size: 2.5em;
+    font-weight: 800;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.header-subtitle {
+    line-height: 1em;
+    font-size: 1.8em;
+    font-weight: 300;
+    margin-left: 5px;
+}
+
+.main-text {
+    margin: 15px 5px;
     line-height: 1.6;
 }
 
-h1, h2 {
-    color: var(--secondary-color);
-    text-align: center;
-    margin-bottom: 1rem;
+.section-header {
+    line-height: 1.5em;
+    font-size: 1.5em;
+    font-weight: 800;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.project-list {
+    list-style-type: disc;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+.project-list li {
+    margin-bottom: 10px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 a {
-    color: var(--primary-color);
+    color: #000;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
-}
-
-.container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Error Messages */

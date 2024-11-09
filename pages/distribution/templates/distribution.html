@@ -8,56 +8,58 @@
     <link rel="stylesheet" href="{{ url_for('distribution.static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Generate Distribution Table</h1>
+    <div class="page-container">
+        <h1>Generate Distribution Table</h1>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for category, message in messages %}
-                    <div class="flash-message {{ category }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
-    <form action="/distribution/generate" method="post">
-        <label for="n">Enter n (# of dice):</label>
-        <input type="number" id="n" name="n" required>
-        
-        <label for="s">Enter s (# of sides):</label>
-        <input type="number" id="s" name="s" required>
-        
-        <button type="submit">Generate Table</button>
-    </form>
+        <form action="/distribution/generate" method="post">
+            <label for="n">Enter n (# of dice):</label>
+            <input type="number" id="n" name="n" required>
+            
+            <label for="s">Enter s (# of sides):</label>
+            <input type="number" id="s" name="s" required>
+            
+            <button type="submit">Generate Table</button>
+        </form>
 
-    {% if table_data %}
-        <h2>Distribution Table for n={{ n }}, s={{ s }}</h2>
-        <table border="1" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Sum (p)</th>
-                    <th>Actual Probability of Sum</th>
-                    <th>Z-Values</th>
-                    <th>Percentile (%)</th>
-                    <th>Normal Approximation</th>
-                    <th>Percent Error (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in table_data %}
+        {% if table_data %}
+            <h2>Distribution Table for n={{ n }}, s={{ s }}</h2>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
                     <tr>
-                        <td>{{ row['Sum (p)'] }}</td>
-                        <td>{{ row['Actual Probability of Sum'] | round(4) }}</td>
-                        <td>{{ row['Z-Values'] | round(4) }}</td>
-                        <td>{{ row['Percentile (%)'] | round(2) }}</td>
-                        <td>{{ row['Normal Approximation'] | round(4) }}</td>
-                        <td>{{ row['Percent Error (%)'] | round(2) }}</td>
+                        <th>Sum (p)</th>
+                        <th>Actual Probability of Sum</th>
+                        <th>Z-Values</th>
+                        <th>Percentile (%)</th>
+                        <th>Normal Approximation</th>
+                        <th>Percent Error (%)</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+                </thead>
+                <tbody>
+                    {% for row in table_data %}
+                        <tr>
+                            <td>{{ row['Sum (p)'] }}</td>
+                            <td>{{ row['Actual Probability of Sum'] | round(4) }}</td>
+                            <td>{{ row['Z-Values'] | round(4) }}</td>
+                            <td>{{ row['Percentile (%)'] | round(2) }}</td>
+                            <td>{{ row['Normal Approximation'] | round(4) }}</td>
+                            <td>{{ row['Percent Error (%)'] | round(2) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
 
-    <a href="/">Back to Home</a>
+        <a href="/">Back to Home</a>
+    </div>
 </body>
 </html>

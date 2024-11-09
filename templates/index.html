@@ -3,13 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Tools</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Evan Wang</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <ul>
-        <li><a href="/distribution">Distribution Page</a></li>
-        <li><a href="/page2">Page 2</a></li>
-    </ul>
+    <div class="page-container">
+        <div class="page_vspacer"></div>
+
+        <div class="full_row">
+            <div class="vertical_block">
+                <div class="header-title">
+                    Evan Wang
+                </div>
+                <div class="header-subtitle">
+                    Student at the University of Washington
+                </div>
+                <div class="header-subtitle">
+                    CS Major, Intending Math Major
+                </div>
+                <div class="spacer"></div>
+            </div>
+        </div>
+
+        <p class="main-text">
+            Evan Wang is a student at the University of Washington pursuing a degree in Computer Science, with plans to also major in Mathematics. He is particularly interested in  mathematical reasoning in computer science and is constantly seeking opportunities to expand his knowledge and expertise.
+        </p>
+
+        <div class="section-header">
+            Math Tools
+        </div>
+        <p class="main-text">
+            Some things I've worked on related to math
+        </p>
+        <ul class="project-list">
+            <li><a href="/distribution">Distribution of the Sum of Dice Rolls</a></li>
+            <li><a href="/page2">Page 2</a></li>
+        </ul>
+    </div>
 </body>
 </html>

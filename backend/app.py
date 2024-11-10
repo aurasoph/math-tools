@@ -10,7 +10,7 @@ app = Flask(
     template_folder='../frontend'  
 )
 
-CORS(app, resources={r"/*": {"origins": "https://luntontius.site"}})
+CORS(app, resources={r"/*": {"origins": ["https://www.luntontius.site", "http://localhost:3000"]}})
 
 app.secret_key = 'mathtools'
 

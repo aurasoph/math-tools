@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_cors import CORS
 from pages.distribution import distribution_blueprint
 from pages.page2 import page2_blueprint 
 
@@ -8,6 +9,8 @@ app = Flask(
     static_url_path='/static', 
     template_folder='../frontend/templates'  
 )
+
+CORS(app, resources={r"/*": {"origins": "https://luntontius.site"}})
 
 app.secret_key = 'mathtools'
 

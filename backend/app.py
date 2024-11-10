@@ -17,6 +17,9 @@ app.secret_key = 'mathtools'
 app.register_blueprint(distribution_blueprint, url_prefix='/distribution')
 app.register_blueprint(page2_blueprint, url_prefix='/page2')  
 
+#@app.route('/')
+#def index():
+#    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -7,7 +7,7 @@ app = Flask(
     __name__, 
     static_folder='../frontend/static',  
     static_url_path='/static', 
-    template_folder='../frontend/templates'  
+    template_folder='../frontend'  
 )
 
 CORS(app, resources={r"/*": {"origins": "https://luntontius.site"}})

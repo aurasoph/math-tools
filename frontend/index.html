@@ -40,5 +40,20 @@
             <li><a href="/page2">Page 2</a></li>
         </ul>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const API_BASE_URL = 'https://math-tools.onrender.com/'; 
+
+            fetch(`${API_BASE_URL}/api/some-endpoint`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); 
+                    document.body.insertAdjacentHTML('beforeend', `<p>API Response: ${JSON.stringify(data)}</p>`);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 </body>
 </html>

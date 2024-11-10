@@ -3,8 +3,8 @@ from . import distribution_blueprint
 from .generate_excel import generate_distribution_data
 
 # Define the limits for n and s
-MAX_N = 1000  # Maximum allowed value for n
-MAX_S = 100  # Maximum allowed value for s
+MAX_N = 1000  
+MAX_S = 100  
 
 @distribution_blueprint.route('/')
 def distribution_home():

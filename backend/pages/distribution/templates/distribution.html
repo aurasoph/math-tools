@@ -6,9 +6,22 @@
     <title>Distribution</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('distribution.static', filename='styles.css') }}">
+    <script type="text/javascript" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 </head>
 <body>
     <div class="page-container">
+        <header>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/distribution/generate">Generate Distribution</a></li>
+                    <!-- Additional links can be added here -->
+                </ul>
+            </nav>
+        </header>
+        
         <h1>Generate Distribution Table</h1>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -59,7 +72,52 @@
             </table>
         {% endif %}
 
-        <a href="/">Back to Home</a>
+        <div class="latex-explanation">
+            <h2> Problem </h2>
+            What is the probability of obtaining a given sum \( s \) of points with \( d \) dice with \( n \) faces?
+            
+            <h2> Solution</h2>
+            The total number of possible outcomes when rolling \( d \) dice is \( n^d \). To find the number of cases where the sum of the dice equals \( s \), we need to count the number of solutions to the following equation:
+            \[ a_1 + a_2 + \dots + a_d = s, \]
+            where \( a_1, a_2, \ldots, a_d \) are integers representing the value of each die and each \( a_i \) takes an integer value from 1 to \( n \).
+            
+            To count the number of solutions to this equation, consider the function:
+            \[ x + x^2 + x^3 + \cdots + x^n. \]
+            
+            Each term represents a possible dice roll, where the power is the sum and the coefficient is the number of occurrences of that sum.
+            
+            Multiplying this polynomial by itself \( d \) times gives the function:
+            \[ (x + x^2 + x^3 + \cdots + x^n)^d = \left(\frac{x(1 - x^n)}{1 - x}\right)^d. \]
+            
+            We are interested in the coefficient of \( x^s \) in the expansion of this polynomial, as it represents the number of ways to obtain a sum \( s \) with \( d \) dice.
+            
+            Using the binomial theorem, we can expand the term \( (1 - x^n)^d \) as:
+            \[ (1 - x^n)^d = \sum_{t=0}^{d} (-1)^t \binom{d}{t} x^{nt}. \]
+            Thus:
+            \[ x^d \cdot (1 - x^n)^d = \sum_{t=0}^{d} (-1)^t \binom{d}{t} x^{nt+d}. \]
+            
+            Also, the series \( \left(\frac{1}{1 - x}\right)^d \) can be expressed as:
+            \[ (1 - x)^{-d} = \sum_{k=0}^{\infty} \binom{d + k - 1}{k} x^k. \]
+            
+            In order to find the coefficient of some \( x^s \), we will use the first series as a base. Notice that given the term in the summation with \( x^{nt+d} \), there is one and only one corresponding \( x^k \). We can find the value of \( k \):
+            \[ x^{d+nt+k} = x^s \]
+            \[ k = s - (d+nt) \]
+            Therefore we get the term:
+            \[ (-1)^t \binom{d}{t} x^{nt+d} \cdot \binom{d-1+s-(d+nt)}{s-(d+nt)} x^k \]
+            \[ (-1)^t \binom{d}{t} \cdot \binom{s-nt-1}{d-1} x^s \]
+            
+            To consider all the combinations, notice that we need \( d+nt \leq s \) since if it is greater than \( s \), there is no corresponding \( k \) that exists that can make the term \( x^s \).
+            \[ d+nt \leq s \]
+            \[ \frac{s-d}{n} \geq t \]
+            
+            Therefore we have:
+            \[ \sum_{t=0}^{\lfloor \frac{s-d}{n} \rfloor} (-1)^t \binom{d}{t} \cdot \binom{d-1+s-(d+nt)}{s-(d+nt)} x^s \]
+            
+            The number of outcomes for obtaining the sum \( s \) is given by the expression above. To find the probability \( p \), we divide this by the total number of possible outcomes \( n^d \):
+            \[ p = \frac{1}{n^d} \sum_{t=0}^{\lfloor \frac{s-d}{n} \rfloor} (-1)^t \binom{d}{t} \binom{s - nt - 1}{d - 1}. \]
+            
+            This expression gives the probability of obtaining a specific sum \( s \) when rolling \( d \) dice. 
+        </div>
     </div>
 </body>
 </html>

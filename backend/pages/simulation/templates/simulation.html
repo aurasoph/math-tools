@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulation Results</title>
+    <title>Verlet Method</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('simulation.static', filename='styles.css') }}">
 </head>
 <body>
+    <header>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </nav>
+    </header>
     {% if euler_data and verlet_data %}
         <h1>Simulation Results</h1>
 

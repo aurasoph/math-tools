@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('simulation.static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Simulation Results</h1>
+    <form action="/simulation/generate" method="post">
+        <label for="start_time">Start Time:</label>
+        <input type="text" id="start_time" name="start_time" value="2023-09-13">
+        <label for="stop_time">Stop Time:</label>
+        <input type="text" id="stop_time" name="stop_time" value="2025-08-01">
+        <label for="step_size">Step Size:</label>
+        <input type="text" id="step_size" name="step_size" value="1 d">
+        <button type="submit">Generate Tables</button>
+    </form>
+
+    {% if euler_data and verlet_data %}
+        <h2>Euler's Method</h2>
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>X (Actual)</th>
+                <th>Y (Actual)</th>
+                <th>Distance (r) (Actual)</th>
+                <th>Angle (θ) (Actual)</th>
+                <th>X (Simulated)</th>
+                <th>Y (Simulated)</th>
+                <th>Distance (r) (Simulated)</th>
+                <th>Angle (θ) (Simulated)</th>
+            </tr>
+            {% for row in euler_data %}
+            <tr>
+                <td>{{ row['Step'] }}</td>
+                <td>{{ row['X_actual'] }}</td>
+                <td>{{ row['Y_actual'] }}</td>
+                <td>{{ row['Distance_actual'] }}</td>
+                <td>{{ row['Angle_actual'] }}</td>
+                <td>{{ row['X_simulated'] }}</td>
+                <td>{{ row['Y_simulated'] }}</td>
+                <td>{{ row['Distance_simulated'] }}</td>
+                <td>{{ row['Angle_simulated'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Verlet's Method</h2>
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>X (Actual)</th>
+                <th>Y (Actual)</th>
+                <th>Distance (r) (Actual)</th>
+                <th>Angle (θ) (Actual)</th>
+                <th>X (Simulated)</th>
+                <th>Y (Simulated)</th>
+                <th>Distance (r) (Simulated)</th>
+                <th>Angle (θ) (Simulated)</th>
+            </tr>
+            {% for row in verlet_data %}
+            <tr>
+                <td>{{ row['Step'] }}</td>
+                <td>{{ row['X_actual'] }}</td>
+                <td>{{ row['Y_actual'] }}</td>
+                <td>{{ row['Distance_actual'] }}</td>
+                <td>{{ row['Angle_actual'] }}</td>
+                <td>{{ row['X_simulated'] }}</td>
+                <td>{{ row['Y_simulated'] }}</td>
+                <td>{{ row['Distance_simulated'] }}</td>
+                <td>{{ row['Angle_simulated'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

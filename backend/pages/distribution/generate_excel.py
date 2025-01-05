@@ -3,7 +3,6 @@ from scipy.stats import norm
 import math
 from fractions import Fraction
 
-
 def P(p, n, s):
     def binomial_coefficient(n, k):
         coeff = Fraction(1)
@@ -19,7 +18,6 @@ def P(p, n, s):
         sum_val += (-1)**k * binomial_coefficient(n, k) * binomial_coefficient(p - s * k - 1, n - 1)
 
     return float(sum_val / s**n)
-
 
 def generate_distribution_data(n, s):
     values = []
@@ -59,5 +57,4 @@ def generate_distribution_data(n, s):
         'Percent Error (%)': percent_errors
     })
 
-    # Convert the DataFrame to a dictionary for easy HTML rendering
     return df_main.to_dict(orient="records")

@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import base64
+import io
 import requests
 import pandas as pd
 import numpy as np
@@ -101,6 +104,52 @@ def generate_simulation_data(start_time, stop_time, step_size):
         for col in ['Angle_actual', 'Angle_simulated']:
             df[col] = df[col].apply(lambda x: round(x, 5))
 
-    print(f"DataFrames formatted")
+    euler_distance_diff = np.abs(actual_polar[:, 0] - euler_distances_angles[:, 0])
+    euler_angle_diff = np.abs(np.arctan2(np.sin(actual_polar[:, 1] - euler_distances_angles[:, 1]),
+                                         np.cos(actual_polar[:, 1] - euler_distances_angles[:, 1])))
 
-    return euler_df.to_dict(orient="records"), verlet_df.to_dict(orient="records")
+    verlet_distance_diff = np.abs(actual_polar[:, 0] - verlet_distances_angles[:, 0])
+    verlet_angle_diff = np.abs(np.arctan2(np.sin(actual_polar[:, 1] - verlet_distances_angles[:, 1]),
+                                          np.cos(actual_polar[:, 1] - verlet_distances_angles[:, 1])))
+
+    # Helper function to create a plot and return it as a base64 string
+    def create_plot(x, y, title, xlabel, ylabel, color):
+        plt.figure(figsize=(10, 6))
+        plt.plot(x, y, label=title, color=color)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.title(title)
+        plt.grid()
+        plt.legend()
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        plot_data = base64.b64encode(buf.getvalue()).decode("utf-8")
+        plt.close()
+        return plot_data
+
+    # Generate Euler plots
+    euler_distance_diff_plot = create_plot(
+        range(steps), euler_distance_diff, "Euler's Distance Difference", "Step", "Distance Difference (km)", "blue"
+    )
+    euler_angle_diff_plot = create_plot(
+        range(steps), euler_angle_diff, "Euler's Angular Difference", "Step", "Angular Difference (radians)", "red"
+    )
+
+    # Generate Verlet plots
+    verlet_distance_diff_plot = create_plot(
+        range(steps), verlet_distance_diff, "Verlet's Distance Difference", "Step", "Distance Difference (km)", "green"
+    )
+    verlet_angle_diff_plot = create_plot(
+        range(steps), verlet_angle_diff, "Verlet's Angular Difference", "Step", "Angular Difference (radians)", "orange"
+    )
+
+    # Return data and plots
+    return (
+        euler_df.to_dict(orient="records"),
+        verlet_df.to_dict(orient="records"),
+        euler_distance_diff_plot,
+        euler_angle_diff_plot,
+        verlet_distance_diff_plot,
+        verlet_angle_diff_plot,
+    )

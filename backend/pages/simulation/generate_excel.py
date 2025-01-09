@@ -24,10 +24,13 @@ def generate_simulation_data(start_time, stop_time, step_size):
     }
 
     # Get API Response
-    response = requests.get(url, params=params)
-    if response.status_code != 200:
-        raise RuntimeError(f"API call failed with status {response.status_code}: {response.text}")
-    data = response.json()
+    try:
+        response = requests.get(url, params=params, timeout=3)
+        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+        data = response.json()
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError("API currently unavailable") from e
+
 
     # Extract and Process Data
     raw_data = data["result"]

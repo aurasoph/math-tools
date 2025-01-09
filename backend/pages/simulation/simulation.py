@@ -32,6 +32,9 @@ def generate_simulation_tables():
             verlet_angle_diff_plot=verlet_angle_diff_plot
         )
 
+    except RuntimeError as e:
+        flash(str(e), "error")
+        return render_template('simulation.html', error_message="API currently unavailable")
     except ValueError as e:
         flash("Invalid input. Please check your parameters.", "error")
         return redirect(url_for('simulation.simulation_home'))
